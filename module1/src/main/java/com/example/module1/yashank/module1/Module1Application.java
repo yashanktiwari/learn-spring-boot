@@ -8,8 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Module1Application implements CommandLineRunner {
 
+	// Field dependency injection
 	@Autowired
-	PaymentService paymentService;
+	NotificationService notificationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Module1Application.class, args);
@@ -17,6 +18,6 @@ public class Module1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		paymentService.pay();
+		notificationService.send("hello");
 	}
 }

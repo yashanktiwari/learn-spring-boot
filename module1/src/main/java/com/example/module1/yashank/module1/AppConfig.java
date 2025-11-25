@@ -8,7 +8,6 @@ public class AppConfig {
 
     @Bean
     public PaymentService paymentService() {
-        System.out.println("Customizing the creation of the payment service bean");
         return new PaymentService();
     }
 }
