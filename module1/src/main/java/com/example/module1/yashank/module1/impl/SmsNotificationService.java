@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(name = "notification.type", havingValue = "sms")
+//@ConditionalOnProperty(name = "notification.type", havingValue = "sms")
 public class SmsNotificationService implements NotificationService {
 
     @Override
