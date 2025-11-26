@@ -8,9 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Module1Application implements CommandLineRunner {
 
-	// Field dependency injection
-	@Autowired
-	NotificationService notificationService;
+	// Constructor dependency injection is preferred because with it, we can make the variables final (immutable)
+	final NotificationService notificationService;
+
+	public Module1Application(NotificationService notificationService) {
+		this.notificationService = notificationService; // Constructor dependency injection
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Module1Application.class, args);
