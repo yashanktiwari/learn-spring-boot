@@ -10,12 +10,12 @@ import java.time.LocalDate;
 public class EmployeeController {
 
     @GetMapping(path = "/{employeeId}")
-    public EmployeeDTO getEmployee(@PathVariable Long employeeId) {
+    public EmployeeDTO getEmployee(@PathVariable(name = "employeeId") Long id) {
         return new EmployeeDTO(
-                employeeId,
+                id,
                 "Yashank",
                 "yashank@gmaiil.com",
-                18, 
+                18,
                 LocalDate.of(2025, 11, 29),
                 true);
     }
