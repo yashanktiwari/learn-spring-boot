@@ -1,28 +1,35 @@
 package com.example.module2.springbootwebtutorial.controllers;
 
-import com.example.module2.springbootwebtutorial.dto.EmployeeDTO;
+import com.example.module2.springbootwebtutorial.entities.Employee;
+import com.example.module2.springbootwebtutorial.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
 
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     @GetMapping(path = "/{employeeId}")
-    public EmployeeDTO getEmployee(@PathVariable(name = "employeeId") Long id) {
-        return new EmployeeDTO(
-                id,
-                "Yashank",
-                "yashank@gmaiil.com",
-                18,
-                LocalDate.of(2025, 11, 29),
-                true);
+    public Employee getEmployee(@PathVariable(name = "employeeId") Long id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @GetMapping
-    public String sayHi(@RequestParam Integer age,
-                        @RequestParam(required = false) String sortBy) {
-        return "Hi " + age + " sortBy " + sortBy;
+    public List<Employee> getAllEmployees(@RequestParam Integer age,
+                                          @RequestParam(required = false) String sortBy) {
+        return employeeRepository.findAll();
+    }
+
+    @PostMapping
+    public Employee createNewEmployee(@RequestBody Employee inputEmployee) {
+        return employeeRepository.save(inputEmployee);
     }
 }
