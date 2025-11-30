@@ -1,7 +1,9 @@
 package com.example.module2.springbootwebtutorial.controllers;
 
+import com.example.module2.springbootwebtutorial.dto.EmployeeDTO;
 import com.example.module2.springbootwebtutorial.entities.Employee;
 import com.example.module2.springbootwebtutorial.repositories.EmployeeRepository;
+import com.example.module2.springbootwebtutorial.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -11,25 +13,26 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping(path = "/{employeeId}")
-    public Employee getEmployee(@PathVariable(name = "employeeId") Long id) {
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeDTO getEmployee(@PathVariable(name = "employeeId") Long id) {
+        return employeeService.getEmployeeById(id);
+
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees(@RequestParam Integer age,
+    public List<EmployeeDTO> getAllEmployees(@RequestParam Integer age,
                                           @RequestParam(required = false) String sortBy) {
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping
-    public Employee createNewEmployee(@RequestBody Employee inputEmployee) {
-        return employeeRepository.save(inputEmployee);
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployee) {
+        return employeeService.createNewEmployee(inputEmployee);
     }
 }
